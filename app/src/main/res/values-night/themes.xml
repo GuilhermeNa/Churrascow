@@ -1,0 +1,124 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Churrascow" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/black</item>
+        <!-- Customize your theme here. -->
+        <item name="fontFamily">@font/montserrat</item>
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Churrascow" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Customize your dark theme here. -->
+        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    </style>
+
+    <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    <!-- ACTION BAR -->
+    <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+
+    <!-- No action bar -->
+    <style name="Theme.Churrascow.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@color/black</item>
+    </style>
+
+    <!-- Home activity action bar -->
+        <style name="Theme.Churrascow.ActionBarHome">
+            <item name="actionBarTheme">@color/white_home</item>
+        </style>
+
+    <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    <!-- BACKGROUND -->
+    <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+
+    <!-- Background color -->
+    <style name="BACKGROUND">
+        <item name="android:background">@color/light_grey</item>
+    </style>
+
+    <!-- Background color V2 -->
+    <style name="BACKGROUND_2">
+        <item name="android:background">@color/light_grey</item>
+    </style>
+
+    <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    <!-- TEXT COLOR -->
+    <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+
+    <!-- Text colors -->
+    <style name="TEXT_COLOR">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TEXT_COLOR_CONTRAST">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    <!-- BUTTONS -->
+    <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+
+    <!-- Default button color -->
+    <style name="BUTTON_BACKGROUND">
+        <item name="android:background">@drawable/shape_btn_login_dark</item>
+    </style>
+
+    <style name="BUTTON_BACKGROUND_CONTRAST">
+        <item name="android:background">@drawable/shape_btn_contrast</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="tint">@color/black</item>
+    </style>
+
+    <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    <!-- BANNERS -->
+    <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+
+    <!-- Login header layers in night and dark colors -->
+    <style name="BANNER_LAYER_1">
+        <item name="android:src">@drawable/banner_layer_1_dark</item>
+    </style>
+    <style name="BANNER_LAYER_2">
+        <item name="android:src">@drawable/banner_layer_2_dark</item>
+    </style>
+    <style name="BANNER_LAYER_3">
+        <item name="android:src">@drawable/banner_layer_3_dark</item>
+    </style>
+
+    <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    <!-- EDIT TEXTS -->
+    <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+
+    <!-- Edit text -->
+    <style name="TEXT_INPUT_STYLE" parent="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="hintTextColor">@color/black</item>
+        <item name="boxBackgroundColor">@color/white</item>
+        <item name="boxCornerRadiusTopStart">10dp</item>
+        <item name="boxCornerRadiusTopEnd">10dp</item>
+        <item name="boxCornerRadiusBottomStart">10dp</item>
+        <item name="boxCornerRadiusBottomEnd">10dp</item>
+    </style>
+
+    <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    <!-- CHECKBOX -->
+    <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+
+    <!-- CheckBox style -->
+    <style name="CHECKBOX" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorOnSurface">@color/light_grey</item>
+        <item name="colorSecondary">@color/red</item>
+    </style>
+
+
+
+</resources>

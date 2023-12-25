@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.fragments.login.LoginFragment"
+            style="@style/BACKGROUND">
+
+            <include
+                android:id="@+id/login_fragment_banner"
+                layout="@layout/login_banner"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.70"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <include
+                android:id="@+id/login_fragment_login_panel"
+                layout="@layout/login_panel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_marginHorizontal="28dp"
+                android:visibility="gone"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:gravity="top"
+                android:orientation="vertical"
+                android:paddingHorizontal="100dp"
+                app:layout_constraintVertical_bias="0"
+
+                app:layout_constraintBottom_toTopOf="@id/login_fragment_support"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/login_fragment_banner">
+
+                <Button
+                    android:id="@+id/login_fragment_btn_access"
+                    style="@style/BUTTON_BACKGROUND"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:clickable="true"
+                    android:elevation="3dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:gravity="center|center_vertical"
+                    android:stateListAnimator="@null"
+                    android:text="@string/access"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:theme="@android:style/ThemeOverlay.Material.Dark"
+                    app:backgroundTint="@null" />
+
+                <Button
+                    android:id="@+id/login_fragment_btn_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/shape_btn_contrast"
+                    android:clickable="true"
+                    android:elevation="5dp"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:stateListAnimator="@null"
+                    android:text="@string/register"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:backgroundTint="@null" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/login_fragment_support"
+                style="@style/TEXT_COLOR"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:text="@string/support"
+                android:textStyle="bold"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</ScrollView>
+

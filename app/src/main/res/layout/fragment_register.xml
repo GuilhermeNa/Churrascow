@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/BACKGROUND_2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.register.RegisterFragment">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        style="@style/BANNER_LAYER_1"
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
+        android:importantForAccessibility="no"
+
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/register_fragment_register_panel"
+        layout="@layout/register_panel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginHorizontal="42dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0" />
+
+    <include
+        android:id="@+id/register_fragment_btn"
+        layout="@layout/button_contrast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginHorizontal="100dp"
+        app:layout_constraintBottom_toTopOf="@id/register_support"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/register_fragment_register_panel"
+        app:layout_constraintVertical_bias="0.2" />
+
+    <TextView
+        android:id="@+id/register_support"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:text="@string/support"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

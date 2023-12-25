@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_panel_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/login_panel_back_image_btn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+
+        android:clickable="true"
+        android:contentDescription="@string/left_arrow"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:theme="@android:style/ThemeOverlay.Material.Dark"
+        app:layout_constraintBottom_toBottomOf="@id/login_panel_title"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/login_panel_title"
+        app:srcCompat="@drawable/icon_left_arrow" />
+
+    <TextView
+        android:id="@+id/login_panel_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_margin="16dp"
+        android:text="@string/log_in"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/login_panel_image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+
+        android:contentDescription="@string/user_image"
+        app:layout_constraintEnd_toEndOf="@id/login_panel_title"
+
+        app:layout_constraintStart_toStartOf="@id/login_panel_title"
+        app:layout_constraintTop_toBottomOf="@id/login_panel_title"
+        app:srcCompat="@drawable/login_panel_person" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/login_panel_layout_user"
+        style="@style/TEXT_INPUT_STYLE"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:hint="@string/email"
+        android:textColorHint="@color/black"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_panel_image">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login_panel_edit_text_email"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textEmailAddress"
+            android:maxLength="50"
+            android:textColor="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/login_panel_layout_password"
+        style="@style/TEXT_INPUT_STYLE"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:hint="@string/password"
+        android:textColorHint="@color/black"
+        app:endIconMode="password_toggle"
+
+        app:layout_constraintEnd_toStartOf="@id/login_panel_login_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_panel_layout_user">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login_panel_edit_text_password"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="numberPassword"
+            android:maxLength="12"
+            android:textColor="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageButton
+        android:id="@+id/login_panel_login_btn"
+        style="@style/BUTTON_BACKGROUND_CONTRAST"
+        android:layout_width="52dp"
+
+        android:layout_height="52dp"
+        android:importantForAccessibility="no"
+        app:layout_constraintBottom_toBottomOf="@id/login_panel_layout_password"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/login_panel_layout_password"
+        app:layout_constraintTop_toTopOf="@id/login_panel_layout_password"
+        app:srcCompat="@drawable/icon_login" />
+
+    <CheckBox
+        android:id="@+id/login_panel_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="8dp"
+        android:paddingStart="10dp"
+        android:text="@string/remember"
+        android:textColor="@color/white"
+        android:theme="@style/CHECKBOX"
+
+        app:layout_constraintStart_toStartOf="@id/login_panel_layout_password"
+        app:layout_constraintTop_toBottomOf="@id/login_panel_layout_password"
+        tools:ignore="RtlSymmetry" />
+
+    <TextView
+        android:id="@+id/login_panel_forgot_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginEnd="8dp"
+        android:text="@string/forget_password"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+
+        app:layout_constraintBottom_toBottomOf="@id/login_panel_checkbox"
+        app:layout_constraintEnd_toEndOf="@id/login_panel_layout_password"
+        app:layout_constraintTop_toTopOf="@id/login_panel_checkbox" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
