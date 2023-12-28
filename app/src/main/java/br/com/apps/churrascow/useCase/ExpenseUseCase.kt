@@ -1,10 +1,7 @@
 package br.com.apps.churrascow.useCase
 
-import br.com.apps.churrascow.service.ExpenseService
-
 class ExpenseUseCase {
 
-    private val service = ExpenseService()
 
 /*    *//**
      * Create a new expense with the received data from view.

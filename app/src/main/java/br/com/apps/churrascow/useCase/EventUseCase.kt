@@ -1,6 +1,10 @@
 package br.com.apps.churrascow.useCase
 
-import br.com.apps.churrascow.service.EventService
+import br.com.apps.churrascow.dto.EventDto
+import br.com.apps.churrascow.mapper.EventMapper
+import br.com.apps.churrascow.model.Event
+import br.com.apps.churrascow.repository.EventRepository
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Base class of business logic. An event is the origin to the entire application flow and here you
@@ -8,52 +12,41 @@ import br.com.apps.churrascow.service.EventService
  * This class manage and redirect its sons behaviors.
  *
  */
-class EventUseCase {
+class EventUseCase(
 
-    private val service = EventService()
-    private val participantUseCase = ParticipantUseCase()
-    private val expenseUserUseCase = ExpenseUseCase()
+    private val repository: EventRepository
 
-/*    *//**
-     * Create a new event with the received data from view.
-     *
-     * @param eventDto received data from ui layer.
-     *//*
-    fun newEvent(eventDto: EventView){
-        service.newEvent(eventDto)
-    }*/
+) {
 
-/*    *//**
-     * Create a new event's participant with the received data from view.
+    /**
+     * Map a Data transfer object to an Event.
      *
-     * This participant will integrate the event.
+     * @param eventDto received data from view.
      *
-     * @param id event's id, used as foreign key
-     * @param participantDto received data from ui layer.
-     *//*
-    fun newEventsParticipant(id: Long, participantDto: ParticipantView){
-        participantUseCase.newParticipant(id, participantDto)
-    }*/
-
-/*    *//**
-     * Create a new event's expense with the received data from view.
-     *
-     * This expense will integrate the event.
-     *
-     * @param id event's id, used as foreign key.
-     * @param expenseDto received data from ui layer.
-     *//*
-    fun newEventsExpense(id: Long, expenseDto: ExpenseView){
-        expenseUserUseCase.newExpense(id, expenseDto)
-    }*/
-
-     /**
-     * This method is going to get all the expenses and participants, calculate each one payment
-     * balance and return the value.
+     * @return Event - mapped object.
      */
-    fun divideValue(){
-
+    fun mapToEvent(eventDto: EventDto): Event {
+        return EventMapper.toEvent(eventDto)
     }
 
+    /**
+     * Adding a new event.
+     *
+     * @param event New event.
+     */
+    suspend fun newEvent(event: Event) {
+        repository.newEvent(event)
+    }
+
+    /**
+     * Loads all event's linked to an userId.
+     *
+     * @param userId user email.
+     *
+     * @return a flow with a list of all user's event.
+     */
+    fun loadEventsByUserId(userId: String): Flow<List<Event>> {
+        return repository.loadEventsByUserId(userId)
+    }
 
 }

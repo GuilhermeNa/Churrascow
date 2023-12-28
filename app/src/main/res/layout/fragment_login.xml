@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".ui.fragments.login.LoginFragment"
-            style="@style/BACKGROUND">
+            style="@style/BACKGROUND_DEFAULT">
 
             <include
                 android:id="@+id/login_fragment_banner"

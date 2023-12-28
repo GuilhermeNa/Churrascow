@@ -26,4 +26,8 @@ data class Participant(
     val name: String,
     val icon: Long?,
 
-    ) : ExpenseGenerator(id)
+    ) : ExpenseGenerator(
+    id = id
+) {
+
+}

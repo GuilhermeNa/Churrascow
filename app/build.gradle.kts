@@ -99,7 +99,8 @@ android {
         testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0-RC")
 
         //Circle indicator
-        //implementation("me.relex:circleindicator:2.1.6")
+        implementation("me.relex:circleindicator:2.1.6")
+
     }
 
 

@@ -27,7 +27,7 @@
         <activity
             android:name=".ui.activities.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/Theme.Churrascow">
+            android:theme="@style/Theme.Churrascow.NoActionBar">
         </activity>
     </application>
 

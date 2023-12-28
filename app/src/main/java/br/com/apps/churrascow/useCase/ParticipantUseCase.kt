@@ -1,10 +1,6 @@
 package br.com.apps.churrascow.useCase
 
-import br.com.apps.churrascow.service.ParticipantService
-
 class ParticipantUseCase {
-
-    private val service = ParticipantService()
 
 /*    *//**
      * Create a new participant with the received data from view.

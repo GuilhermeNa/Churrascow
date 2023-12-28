@@ -1,5 +1,6 @@
 package br.com.apps.churrascow.ui.fragments.register
 
+import android.database.sqlite.SQLiteConstraintException
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +23,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private const val CREATION_SUCCEED = "Usuário criado com sucesso"
 private const val CREATION_FAILED = "Verifique os campos e tente novamente"
+
+private const val EMAIL_ALREADY_EXISTS = "Email já cadastrado"
 
 class RegisterFragment : Fragment() {
 
@@ -79,17 +82,37 @@ class RegisterFragment : Fragment() {
             text = resources.getString(R.string.register)
 
             setOnClickListener {
+                cleanErrors()
                 val registrationDto = getRegistrationDto()
-
                 lifecycleScope.launch {
                     registrationDto?.let { dto ->
-                        viewModel.registerBtnClicked(dto)?.let { errors ->
-                            creationFailed(errors)
 
-                        } ?: creationSucceed()
+                        try {
+
+                            viewModel.registerBtnClicked(dto)?.let { errors ->
+                                creationFailed(errors)
+                            } ?: creationSucceed()
+
+                        } catch (e: SQLiteConstraintException) {
+
+                            binding
+                                .registerFragmentRegisterPanel
+                                .registerPanelEditTextEmail.error =
+                                EMAIL_ALREADY_EXISTS
+
+                        }
                     }
                 }
             }
+        }
+    }
+
+    private fun cleanErrors() {
+        binding.registerFragmentRegisterPanel.apply {
+            registerPanelEditTextName.error = null
+            registerPanelEditTextEmail.error = null
+            registerPanelEditTextPassword.error = null
+            registerPanelEditTextPasswordConfirmation.error = null
         }
     }
 

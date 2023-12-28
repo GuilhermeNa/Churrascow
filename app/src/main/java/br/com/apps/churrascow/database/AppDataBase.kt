@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import br.com.apps.churrascow.database.converter.ConverterLocalDateTime
 import br.com.apps.churrascow.database.converter.ConvertersBigDecimal
+import br.com.apps.churrascow.database.dao.EventDao
 import br.com.apps.churrascow.database.dao.UserDao
 import br.com.apps.churrascow.model.Event
 import br.com.apps.churrascow.model.Participant
@@ -36,6 +37,7 @@ const val DATABASE_NAME_TEST = "test.db"
 abstract class AppDataBase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
+    abstract fun eventDao(): EventDao
 
     companion object {
 

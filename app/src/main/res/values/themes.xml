@@ -32,10 +32,10 @@
         <item name="android:statusBarColor">@color/midnightblue</item>
     </style>
 
-    <!-- Home activity action bar -->
-    <style name="Theme.Churrascow.ActionBarHome">
-        <item name="android:background">@color/white_home</item>
-        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    <style name="CUSTOM_TOOLBAR">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="background">@color/off_white</item>
     </style>
 
     <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
@@ -43,8 +43,12 @@
     <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
 
     <!-- Background color -->
-    <style name="BACKGROUND">
-        <item name="android:background">@color/white</item>
+    <style name="BACKGROUND_DEFAULT">
+        <item name="android:background">@color/off_white</item>
+    </style>
+
+    <style name="BACKGROUND_V1">
+        <item name="android:backgroundTint">@color/white</item>
     </style>
 
     <!-- Background color V2 -->
@@ -52,9 +56,14 @@
         <item name="android:background">@color/light_blue</item>
     </style>
 
-    <!-- Background color used in home fragment -->
-    <style name="BACKGROUND_HOME_FRAGMENT">
-        <item name="android:background">@color/white_home</item>
+    <!-- Background color used in toolbar -->
+    <style name="BACKGROUND_V3">
+        <item name="android:background">@color/off_white</item>
+    </style>
+
+    <style name="BACKGROUND_HOME_FRAG_PANEL">
+        <item name="android:background">@drawable/shape_background_bottom_sheet_layout</item>
+        <item name="android:backgroundTint">@color/white</item>
     </style>
 
     <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
@@ -136,6 +145,23 @@
     <style name="CHECKBOX" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="colorOnSurface">@color/light_grey</item>
         <item name="colorSecondary">@color/red</item>
+    </style>
+
+    <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    <!-- FAB -->
+    <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+
+    <style name="FAB">
+        <item name="backgroundTint">@color/midnightblue</item>
+        <item name="tint">@color/white</item>
+    </style>
+
+    <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    <!-- CIRCLE_INDICATOR -->
+    <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+
+    <style name="CIRCLE_INDICATOR">
+        <item name="ci_drawable">@drawable/selector_circle_indicator</item>
     </style>
 
 </resources>

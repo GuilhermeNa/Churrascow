@@ -32,23 +32,32 @@
         <item name="android:statusBarColor">@color/black</item>
     </style>
 
-    <!-- Home activity action bar -->
-        <style name="Theme.Churrascow.ActionBarHome">
-            <item name="actionBarTheme">@color/white_home</item>
-        </style>
-
     <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
     <!-- BACKGROUND -->
     <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
 
     <!-- Background color -->
-    <style name="BACKGROUND">
+    <style name="BACKGROUND_DEFAULT">
         <item name="android:background">@color/light_grey</item>
+    </style>
+
+    <style name="BACKGROUND_V1">
+        <item name="android:backgroundTint">@color/black</item>
     </style>
 
     <!-- Background color V2 -->
     <style name="BACKGROUND_2">
         <item name="android:background">@color/light_grey</item>
+    </style>
+
+    <!-- Background color used in toolbar -->
+    <style name="BACKGROUND_V3">
+        <item name="android:background">@color/light_grey</item>
+    </style>
+
+    <style name="BACKGROUND_HOME_FRAG_PANEL">
+        <item name="android:background">@drawable/shape_background_bottom_sheet_layout</item>
+        <item name="android:backgroundTint">@color/black</item>
     </style>
 
     <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
@@ -118,6 +127,15 @@
         <item name="colorOnSurface">@color/light_grey</item>
         <item name="colorSecondary">@color/red</item>
     </style>
+
+    <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    <!-- CIRCLE_INDICATOR -->
+    <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+
+    <style name="CIRCLE_INDICATOR">
+        <item name="ci_drawable">@drawable/selector_circle_indicator_dark</item>
+    </style>
+
 
 
 

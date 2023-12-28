@@ -9,6 +9,6 @@ import java.lang.annotation.Inherited
 abstract class ExpenseGenerator(
 
     @PrimaryKey(autoGenerate = true)
-    open val id: Long
+    open val id: Long? = null
 
 )

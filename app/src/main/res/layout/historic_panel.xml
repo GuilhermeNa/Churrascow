@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    style="@style/BACKGROUND_HOME_FRAG_PANEL"
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent"
+    android:elevation="20dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:importantForAccessibility="no"
+
+        android:paddingVertical="16dp"
+        app:srcCompat="@drawable/item_historic_horizontal_bar" />
+
+    <TextView
+        style="@style/TEXT_COLOR"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:text="@string/All_activities"
+        android:textSize="16sp"
+
+        android:textStyle="bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/historic_panel_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_marginTop="15dp"
+        android:paddingHorizontal="25dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+        tools:listitem="@layout/item_historic" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
+
+

@@ -29,8 +29,8 @@ class InternalUserDataSource(
      *
      * @param user New user.
      */
-    suspend fun newUser(user: User){
-        userDao.add(user)
+    suspend fun newUser(user: User) {
+         userDao.add(user)
     }
 
     /**

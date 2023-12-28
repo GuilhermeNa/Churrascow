@@ -6,8 +6,10 @@ import br.com.apps.churrascow.model.User
 import kotlinx.coroutines.flow.Flow
 
 class UserRepository(
+
     private val internalDataSource: InternalUserDataSource,
     private val externalDataSource: ExternalUserDataSource
+
 ) {
 
     /**
@@ -26,7 +28,7 @@ class UserRepository(
      *
      * @param user New user.
      */
-    suspend fun newUser(user: User){
+    suspend fun newUser(user: User) {
         internalDataSource.newUser(user)
     }
 

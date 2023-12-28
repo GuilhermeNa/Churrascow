@@ -10,7 +10,9 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import br.com.apps.churrascow.databinding.FragmentHomeBinding
-import br.com.apps.churrascow.ui.adapters.ViewPagerAdapter
+import br.com.apps.churrascow.dto.EventDto
+import br.com.apps.churrascow.ui.adapters.HomeFragmentRecyclerViewAdapter
+import br.com.apps.churrascow.ui.adapters.HomeFragmentViewPagerAdapter
 import br.com.apps.churrascow.ui.fragments.BaseFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -29,7 +31,7 @@ class HomeFragment : BaseFragment() {
 
     //---------------------------------------------------------------------------------------------//
     // ON CREATE
-    //---------------------------------------------------------------------------------------------/
+    //---------------------------------------------------------------------------------------------//
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +45,7 @@ class HomeFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -57,6 +59,8 @@ class HomeFragment : BaseFragment() {
         initViewPager()
         initTransFormer()
         initCircleIndicator()
+        initRecyclerView()
+        initViewController()
         //  activity?.onBackPressedDispatcher
     }
 
@@ -65,17 +69,38 @@ class HomeFragment : BaseFragment() {
      *
      */
     private fun initViewPager() {
-        val ints = listOf<Int>(1, 2, 3)
-        viewPager = binding.homeFragmentViewPager
-        val viewPagerAdapter = ViewPagerAdapter(requireContext(), ints, viewPager)
+        val lista = listOf(
+            EventDto(
+                idUser = "1",
+                title = "Titulo 1",
+                description = "Churras do blabla",
+                date = "Abril"
+            ),
+            EventDto(
+                idUser = "2",
+                title = "Titulo 2",
+                description = "Churras do blablasdasdasdasdasdasdadadsada",
+                date = "Abril"
+            ),
+            EventDto(
+                idUser = "3",
+                title = "Titulo 2",
+                description = "Churras do blablasdasdasda",
+                date = "Abril"
+            )
+        )
 
-        viewPager.adapter = viewPagerAdapter
+        viewPager = binding.homeFragmentViewPager
+        val homeFragmentViewPagerAdapter = HomeFragmentViewPagerAdapter(requireContext(), lista)
+
+        viewPager.adapter = homeFragmentViewPagerAdapter
         viewPager.offscreenPageLimit = 3
         viewPager.clipToPadding = false
         viewPager.clipChildren = false
         viewPager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
 
     }
+
     /**
      * Responsible for ViewPager animation when its onScreen item has changed.
      */
@@ -89,9 +114,43 @@ class HomeFragment : BaseFragment() {
         viewPager.setPageTransformer(transformer)
     }
 
+    /**
+     * Responsible for circle indicator, used as index for viewPager.
+     */
     private fun initCircleIndicator() {
-        /*  val indicator = binding.homeFragmentCircleIndicator
-          indicator.setViewPager(viewPager)*/
+        val indicator = binding.homeFragmentCircleIndicator
+        indicator.setViewPager(viewPager)
+    }
+
+    /**
+     * Responsible for recycler view.
+     */
+    private fun initRecyclerView() {
+        val recyclerView = binding.homeFragmentHistoricPanel.historicPanelRecycler
+        val recyclerAdapter = HomeFragmentRecyclerViewAdapter(requireContext(), listOf(1, 2, 3))
+
+        recyclerView.adapter = recyclerAdapter
+
+    }
+
+    /**
+     * This method is responsible for manipulate the fragment's view by observing a MutableLiveData.
+     *
+     */
+    private fun initViewController() {
+        viewModel.eventDate.observe(viewLifecycleOwner) {
+            it?.let {
+                binding.homeFragmentDate.text = it
+            }
+        }
+
+        viewModel.eventsDataSet.observe(viewLifecycleOwner) {
+            it?.let {
+                //todo enviar dados para viewPager
+            }
+        }
+
+
     }
 
     //---------------------------------------------------------------------------------------------//
