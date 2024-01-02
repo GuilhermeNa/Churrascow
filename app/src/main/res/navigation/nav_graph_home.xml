@@ -8,5 +8,24 @@
         android:id="@+id/homeFragment"
         android:name="br.com.apps.churrascow.ui.fragments.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_formEventFragment"
+            app:destination="@id/formEventFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/formEventFragment"
+        android:name="br.com.apps.churrascow.ui.fragments.formEvent.FormEventFragment"
+        android:label="fragment_form_event"
+        tools:layout="@layout/fragment_form_event" />
+    <fragment
+        android:id="@+id/paymentsFragment"
+        android:name="br.com.apps.churrascow.ui.fragments.payment.PaymentFragment"
+        android:label="fragment_payments"
+        tools:layout="@layout/fragment_payments" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="br.com.apps.churrascow.ui.fragments.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" /><action android:id="@+id/action_global_profileFragment" app:destination="@id/profileFragment"/>
 </navigation>

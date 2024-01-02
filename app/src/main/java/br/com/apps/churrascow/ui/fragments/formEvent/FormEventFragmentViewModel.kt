@@ -1,4 +1,4 @@
-package br.com.apps.churrascow.ui.fragments
+package br.com.apps.churrascow.ui.fragments.formEvent
 
 import androidx.lifecycle.ViewModel
 import br.com.apps.churrascow.dto.EventDto
@@ -10,6 +10,7 @@ class FormEventFragmentViewModel(
 
 
 ) : ViewModel() {
+
 
     suspend fun adicionar(eventDto: EventDto){
 

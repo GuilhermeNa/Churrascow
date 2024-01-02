@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/home"
+        android:id="@+id/homeFragment"
         android:icon="@drawable/icon_home"
         android:title="@string/home" />
 
@@ -17,7 +17,7 @@
         android:title="" />
 
     <item
-        android:id="@+id/Profile"
+        android:id="@+id/paymentsFragment"
         android:icon="@drawable/icon_payments"
         android:title="@string/payments" />
 

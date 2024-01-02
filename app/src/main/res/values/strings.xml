@@ -65,4 +65,7 @@
     <string name="events">Events</string>
     <string name="payments">Payments</string>
     <string name="settings">Settings</string>
+    <string name="save">Salvar</string>
+    <string name="barbecue_image">Barbecue image</string>
+    <string name="register_barbecue">Novo evento</string>
 </resources>

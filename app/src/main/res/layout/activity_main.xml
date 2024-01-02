@@ -57,6 +57,7 @@
             app:fabAlignmentMode="center">
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/main_activity_navigation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 

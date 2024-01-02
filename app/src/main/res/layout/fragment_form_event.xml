@@ -1,14 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragments.formEvent.FormEventFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
+        android:id="@+id/fragment_form_event_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="200dp"
 
-</FrameLayout>
+        app:srcCompat="@drawable/default_image"
+        android:contentDescription="@string/barbecue_image"
+        android:scaleType="centerCrop"
+        android:elevation="1dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <include layout="@layout/background_layer" />
+
+    <ImageButton
+        android:id="@+id/fragment_form_event_image_btn"
+        style="@style/BUTTON_BACKGROUND_CONTRAST"
+        android:layout_width="52dp"
+
+        android:layout_height="52dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="48dp"
+        android:importantForAccessibility="no"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@id/fragment_form_event_image"
+        app:srcCompat="@drawable/icon_image" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/fragment_form_event_input_layout"
+        style="@style/TEXT_INPUT_STYLE"
+        android:layout_width="0dp"
+
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="30dp"
+        android:hint="@string/name"
+        android:textColorHint="@color/black"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
+        app:counterTextColor="@color/off_white"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/fragment_form_event_image_btn"
+        app:layout_constraintTop_toBottomOf="@id/fragment_form_event_image">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/fragment_form_event_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textCapWords"
+            android:maxLength="20"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/fragment_form_event_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:foreground="?android:attr/selectableItemBackground"
+        android:theme="@android:style/ThemeOverlay.Material.Dark"
+
+        android:focusable="true"
+        android:clickable="true"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/shape_bordered_text"
+        android:gravity="center"
+        android:padding="14dp"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@id/fragment_form_event_input_layout"
+
+        app:layout_constraintStart_toStartOf="@id/fragment_form_event_input_layout"
+        app:layout_constraintTop_toBottomOf="@id/fragment_form_event_input_layout"
+        tools:text="@tools:sample/date/ddmmyy" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
