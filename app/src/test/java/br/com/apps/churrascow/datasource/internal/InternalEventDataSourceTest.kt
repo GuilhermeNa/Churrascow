@@ -27,7 +27,7 @@ class InternalEventDataSourceTest {
             dao.add(event)
         }.returns(Unit)
 
-        internalData.newEvent(event)
+        internalData.addEvent(event)
 
         coVerify {
             dao.add(event)

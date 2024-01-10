@@ -11,7 +11,7 @@ import androidx.navigation.Navigation
 import br.com.apps.churrascow.R
 import br.com.apps.churrascow.databinding.FragmentRegisterBinding
 import br.com.apps.churrascow.dto.RegistrationDto
-import br.com.apps.churrascow.ui.fragments.BaseFragment
+import br.com.apps.churrascow.ui.fragments.baseFragment.BaseFragment
 import br.com.apps.churrascow.useCase.BAD_PASSWORD
 import br.com.apps.churrascow.useCase.EMPTY_PASSWORD
 import br.com.apps.churrascow.useCase.UNCONFIRMED_PASSWORD

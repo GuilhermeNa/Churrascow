@@ -22,20 +22,6 @@
 
     <include layout="@layout/background_layer" />
 
-    <ImageButton
-        android:id="@+id/fragment_form_event_image_btn"
-        style="@style/BUTTON_BACKGROUND_CONTRAST"
-        android:layout_width="52dp"
-
-        android:layout_height="52dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="48dp"
-        android:importantForAccessibility="no"
-        app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintTop_toBottomOf="@id/fragment_form_event_image"
-        app:srcCompat="@drawable/icon_image" />
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/fragment_form_event_input_layout"
         style="@style/TEXT_INPUT_STYLE"
@@ -44,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="48dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginHorizontal="30dp"
         android:hint="@string/name"
         android:textColorHint="@color/black"
         app:counterEnabled="true"
@@ -52,7 +38,7 @@
         app:counterTextColor="@color/off_white"
 
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/fragment_form_event_image_btn"
+       app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/fragment_form_event_image">
 
         <com.google.android.material.textfield.TextInputEditText

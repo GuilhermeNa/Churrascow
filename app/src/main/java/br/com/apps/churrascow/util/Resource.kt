@@ -2,7 +2,7 @@ package br.com.apps.churrascow.util
 
 data class Resource<T>(
 
-    var t: T,
+    var t: T?,
     var error: String? = null
 
 ) {

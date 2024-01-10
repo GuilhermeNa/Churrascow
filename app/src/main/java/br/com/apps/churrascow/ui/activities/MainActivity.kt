@@ -1,20 +1,16 @@
 package br.com.apps.churrascow.ui.activities
 
-import android.content.res.Configuration
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.view.get
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import br.com.apps.churrascow.R
 import br.com.apps.churrascow.databinding.ActivityMainBinding
+import br.com.apps.churrascow.ui.fragments.formEvent.FormEventFragment
 import br.com.apps.churrascow.ui.fragments.home.HomeFragmentDirections
 import br.com.apps.churrascow.util.toolbarLightAndDarkColors
 
@@ -151,10 +147,26 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val navHost =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container_main)
+
         when (item.itemId) {
             R.id.menu_home_profile ->
                 navController.navigate(R.id.action_global_profileFragment)
 
+            R.id.menu_home_save ->
+                navHost?.let {
+                    it.childFragmentManager.primaryNavigationFragment?.let { fragment ->
+                        (fragment as FormEventFragment).toolbarSaveClick()
+                    }
+                }
+
+            android.R.id.home ->
+                navHost?.let {
+                    it.childFragmentManager.primaryNavigationFragment?.let { fragment ->
+                        (fragment as FormEventFragment).toolbarBackClick()
+                    }
+                }
 
         }
 

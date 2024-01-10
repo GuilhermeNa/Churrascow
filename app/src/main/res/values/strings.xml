@@ -68,4 +68,6 @@
     <string name="save">Salvar</string>
     <string name="barbecue_image">Barbecue image</string>
     <string name="register_barbecue">Novo evento</string>
+    <string name="url_image">Url da imagem</string>
+    <string name="load">Carregar</string>
 </resources>

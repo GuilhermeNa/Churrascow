@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_login"
     android:label="Nav Graph Login"
-    app:startDestination="@id/navLogin">
+    app:startDestination="@id/starterFragment">
 
     <fragment
         android:id="@+id/navLogin"
@@ -21,5 +21,17 @@
         android:name="br.com.apps.churrascow.ui.fragments.register.RegisterFragment"
         android:label="Fragment register"
         tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/starterFragment"
+        android:name="br.com.apps.churrascow.ui.fragments.StarterFragment"
+        android:label="fragment_starter"
+        tools:layout="@layout/fragment_starter" >
+        <action
+            android:id="@+id/action_starterFragment_to_navLogin"
+            app:destination="@id/navLogin"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/starterFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 </navigation>

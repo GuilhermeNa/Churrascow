@@ -6,7 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import br.com.apps.churrascow.databinding.FragmentPaymentsBinding
-import br.com.apps.churrascow.ui.fragments.BaseFragment
+import br.com.apps.churrascow.ui.fragments.baseFragment.BaseFragment
+import br.com.apps.churrascow.ui.fragments.baseFragment.BaseFragmentV1
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -14,7 +15,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  * Use the [PaymentFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class PaymentFragment : BaseFragment() {
+class PaymentFragment : BaseFragmentV1() {
 
     private var _binding: FragmentPaymentsBinding? = null
     private val binding get() = _binding!!

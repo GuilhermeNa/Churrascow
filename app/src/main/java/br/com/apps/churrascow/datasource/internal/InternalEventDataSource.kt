@@ -15,7 +15,7 @@ class InternalEventDataSource(
      *
      * @param event New event.
      */
-    suspend fun newEvent(event: Event) {
+    suspend fun addEvent(event: Event) {
         dao.add(event)
     }
 

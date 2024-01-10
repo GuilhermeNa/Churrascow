@@ -4,9 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import br.com.apps.churrascow.databinding.FragmentSupportBinding
-import br.com.apps.churrascow.ui.fragments.BaseFragment
+import br.com.apps.churrascow.ui.fragments.baseFragment.BaseFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SupportFragment : BaseFragment() {

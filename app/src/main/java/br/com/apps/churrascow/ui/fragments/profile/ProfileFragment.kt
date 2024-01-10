@@ -6,7 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import br.com.apps.churrascow.databinding.FragmentProfileBinding
-import br.com.apps.churrascow.ui.fragments.BaseFragment
+import br.com.apps.churrascow.ui.fragments.baseFragment.BaseFragment
+import br.com.apps.churrascow.ui.fragments.baseFragment.BaseFragmentV1
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -14,7 +15,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  * Use the [ProfileFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ProfileFragment : BaseFragment() {
+class ProfileFragment : BaseFragmentV1() {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
