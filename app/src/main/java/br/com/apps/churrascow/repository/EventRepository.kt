@@ -17,8 +17,8 @@ class EventRepository(
      *
      * @param event New event.
      */
-    suspend fun newEvent(event: Event){
-        internalDataSource.newEvent(event)
+    suspend fun addEvent(event: Event){
+        internalDataSource.addEvent(event)
     }
 
     /**

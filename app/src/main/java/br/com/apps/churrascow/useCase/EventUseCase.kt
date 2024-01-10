@@ -1,9 +1,11 @@
 package br.com.apps.churrascow.useCase
 
 import br.com.apps.churrascow.dto.EventDto
+import br.com.apps.churrascow.factory.EventFactory
 import br.com.apps.churrascow.mapper.EventMapper
 import br.com.apps.churrascow.model.Event
 import br.com.apps.churrascow.repository.EventRepository
+import br.com.apps.churrascow.util.Resource
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -34,8 +36,8 @@ class EventUseCase(
      *
      * @param event New event.
      */
-    suspend fun newEvent(event: Event) {
-        repository.newEvent(event)
+    suspend fun addEvent(event: Event) {
+        repository.addEvent(event)
     }
 
     /**
@@ -47,6 +49,10 @@ class EventUseCase(
      */
     fun loadEventsByUserId(userId: String): Flow<List<Event>> {
         return repository.loadEventsByUserId(userId)
+    }
+
+    fun createEvent(eventDto: EventDto): Event {
+        return EventFactory.createObject(eventDto)
     }
 
 }

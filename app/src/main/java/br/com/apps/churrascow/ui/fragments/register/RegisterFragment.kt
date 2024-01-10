@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import br.com.apps.churrascow.R
 import br.com.apps.churrascow.databinding.FragmentRegisterBinding
 import br.com.apps.churrascow.dto.RegistrationDto
+import br.com.apps.churrascow.ui.fragments.baseFragment.BaseFragment
 import br.com.apps.churrascow.useCase.BAD_PASSWORD
 import br.com.apps.churrascow.useCase.EMPTY_PASSWORD
 import br.com.apps.churrascow.useCase.UNCONFIRMED_PASSWORD
@@ -26,7 +26,7 @@ private const val CREATION_FAILED = "Verifique os campos e tente novamente"
 
 private const val EMAIL_ALREADY_EXISTS = "Email já cadastrado"
 
-class RegisterFragment : Fragment() {
+class RegisterFragment : BaseFragment() {
 
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!

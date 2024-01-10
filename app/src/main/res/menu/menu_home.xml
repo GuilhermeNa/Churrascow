@@ -3,9 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/insertion_order_products_list_menu"
+        android:id="@+id/menu_home_profile"
         android:icon="@drawable/icon_profile"
         app:showAsAction="ifRoom"
         android:title="@string/profile" />
+
+    <item
+        android:id="@+id/menu_home_save"
+        android:icon="@drawable/icon_check"
+        app:showAsAction="ifRoom"
+        android:title="@string/save"
+        
+        android:visible="false"/>
 
 </menu>

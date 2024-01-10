@@ -50,13 +50,13 @@ class EventUseCaseTest{
     @Test
     fun `should call repository newUser when trying to add new event`() = runTest {
         coEvery {
-            repository.newEvent(event)
+            repository.addEvent(event)
         }.returns(Unit)
 
-        useCase.newEvent(event)
+        useCase.addEvent(event)
 
         coVerify {
-            repository.newEvent(event)
+            repository.addEvent(event)
         }
     }
 

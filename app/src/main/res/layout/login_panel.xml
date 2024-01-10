@@ -120,6 +120,7 @@
         android:text="@string/remember"
         android:textColor="@color/white"
         android:theme="@style/CHECKBOX"
+        android:checked="true"
 
         app:layout_constraintStart_toStartOf="@id/login_panel_layout_password"
         app:layout_constraintTop_toBottomOf="@id/login_panel_layout_password"

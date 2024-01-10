@@ -31,7 +31,7 @@ class LoginFragmentViewModel(
      *
      * false - user don't want to hold user and password.
      */
-    private var rememberPassword: Boolean = true
+    var rememberPassword: Boolean = true
 
     //---------------------------------------------------------------------------------------------//
     // METHODS

@@ -27,10 +27,11 @@ data class Event(
     val idUser: String,
 
     val title: String,
+    val date: LocalDateTime?,
+    val urlImage: String? = null,
     val description: String? = null,
-    val date: LocalDateTime? = null ?: LocalDateTime.now()
 
-) : ExpenseGenerator(id = id) {
+    ) : ExpenseGenerator(id = id) {
 
     /**
      * This ticket revenue goal represents the initial spending expectation for this event.
@@ -63,7 +64,7 @@ data class Event(
     /**
      * Add a payment for total collected tickets.
      *
-     * @param value value paid.
+     * @param value paid value.
      *
      * @see collectedTicket
      */

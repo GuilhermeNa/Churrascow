@@ -30,7 +30,7 @@ class HomeFragmentViewPagerAdapter(
 
         fun vincula(eventDto: EventDto){
             title.text = eventDto.title
-            description.text = eventDto.description
+            description.text = ""
             participants.text = "text"
         }
 

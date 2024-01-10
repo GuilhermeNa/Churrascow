@@ -66,6 +66,12 @@
         <item name="android:backgroundTint">@color/white</item>
     </style>
 
+    <style name="BACKGROUND_LAYER">
+        <item name="android:background">@color/light_blue</item>
+        <item name="android:src">@drawable/banner_layer_1_light</item>
+        <item name ="android:scaleType">fitXY</item>
+    </style>
+
     <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
     <!-- CARD VIEW -->
     <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
@@ -77,6 +83,7 @@
         <item name="cardElevation">10dp</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
     </style>
 
     <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->

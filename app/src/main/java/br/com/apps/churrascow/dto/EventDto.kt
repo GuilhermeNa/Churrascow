@@ -4,7 +4,7 @@ data class EventDto(
 
     val idUser: String,
     val title: String,
-    val description: String? = null,
-    val date: String? = null
+    var date: String,
+    var urlImage: String
 
 )

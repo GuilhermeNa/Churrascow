@@ -9,13 +9,15 @@ import br.com.apps.churrascow.datasource.external.ExternalEventDataSource
 import br.com.apps.churrascow.datasource.external.ExternalUserDataSource
 import br.com.apps.churrascow.datasource.internal.InternalEventDataSource
 import br.com.apps.churrascow.datasource.internal.InternalUserDataSource
-import br.com.apps.churrascow.mapper.EventMapper
 import br.com.apps.churrascow.repository.EventRepository
 import br.com.apps.churrascow.repository.UserRepository
-import br.com.apps.churrascow.ui.fragments.FormEventFragmentViewModel
+import br.com.apps.churrascow.ui.fragments.formEvent.FormEventFragmentViewModel
 import br.com.apps.churrascow.ui.fragments.home.HomeFragmentViewModel
 import br.com.apps.churrascow.ui.fragments.login.LoginFragmentViewModel
+import br.com.apps.churrascow.ui.fragments.payment.PaymentFragmentViewModel
+import br.com.apps.churrascow.ui.fragments.profile.ProfileFragmentViewModel
 import br.com.apps.churrascow.ui.fragments.register.RegisterFragmentViewModel
+import br.com.apps.churrascow.ui.fragments.support.SupportFragmentViewModel
 import br.com.apps.churrascow.useCase.CredentialUseCase
 import br.com.apps.churrascow.useCase.EventUseCase
 import br.com.apps.churrascow.useCase.ParticipantUseCase
@@ -38,6 +40,10 @@ val viewModelModule = module {
     viewModel<RegisterFragmentViewModel> { RegisterFragmentViewModel(get(), get()) }
     viewModel<HomeFragmentViewModel> { HomeFragmentViewModel(get()) }
     viewModel<FormEventFragmentViewModel> { FormEventFragmentViewModel(get()) }
+    viewModel<PaymentFragmentViewModel> { PaymentFragmentViewModel() }
+    viewModel<ProfileFragmentViewModel> { ProfileFragmentViewModel() }
+    viewModel<SupportFragmentViewModel> { SupportFragmentViewModel() }
+
 }
 
 val repositoryModule = module {

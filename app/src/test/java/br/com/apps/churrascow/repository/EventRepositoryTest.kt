@@ -3,7 +3,6 @@ package br.com.apps.churrascow.repository
 import br.com.apps.churrascow.datasource.external.ExternalEventDataSource
 import br.com.apps.churrascow.datasource.internal.InternalEventDataSource
 import br.com.apps.churrascow.model.Event
-import br.com.apps.churrascow.model.User
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -28,13 +27,13 @@ class EventRepositoryTest {
     @Test
     fun `should call internal new event when trying to register an event`() = runTest {
         coEvery {
-            internalData.newEvent(event)
+            internalData.addEvent(event)
         }.returns(Unit)
 
-        repository.newEvent(event)
+        repository.addEvent(event)
 
         coVerify {
-            internalData.newEvent(event)
+            internalData.addEvent(event)
         }
     }
 

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -13,15 +14,12 @@ import br.com.apps.churrascow.databinding.FragmentHomeBinding
 import br.com.apps.churrascow.dto.EventDto
 import br.com.apps.churrascow.ui.adapters.HomeFragmentRecyclerViewAdapter
 import br.com.apps.churrascow.ui.adapters.HomeFragmentViewPagerAdapter
-import br.com.apps.churrascow.ui.fragments.BaseFragment
+import br.com.apps.churrascow.ui.fragments.baseFragment.BaseFragment
+import br.com.apps.churrascow.ui.fragments.baseFragment.BaseFragmentV1
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragmentV1() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -61,6 +59,12 @@ class HomeFragment : BaseFragment() {
         initCircleIndicator()
         initRecyclerView()
         initViewController()
+
+        binding.homeFragmentEventTitle.setOnClickListener {
+            lifecycleScope.launch {
+                logout()
+            }
+        }
         //  activity?.onBackPressedDispatcher
     }
 
@@ -73,20 +77,20 @@ class HomeFragment : BaseFragment() {
             EventDto(
                 idUser = "1",
                 title = "Titulo 1",
-                description = "Churras do blabla",
-                date = "Abril"
+                date = "Abril",
+                urlImage = ""
             ),
             EventDto(
                 idUser = "2",
                 title = "Titulo 2",
-                description = "Churras do blablasdasdasdasdasdasdadadsada",
-                date = "Abril"
+                date = "Abril",
+                urlImage = ""
             ),
             EventDto(
                 idUser = "3",
                 title = "Titulo 2",
-                description = "Churras do blablasdasdasda",
-                date = "Abril"
+                date = "Abril",
+                urlImage = ""
             )
         )
 

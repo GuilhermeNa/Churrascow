@@ -2,6 +2,7 @@ package br.com.apps.churrascow.util
 
 import android.graphics.Color
 import android.view.View
+import androidx.navigation.Navigation
 import com.google.android.material.snackbar.Snackbar
 
 fun View.snackBarGreen(text: String) {
@@ -16,4 +17,8 @@ fun View.snackBarRed(text: String) {
         .setBackgroundTint(Color.parseColor("#FF0000"))
         .setTextColor(Color.parseColor("#FFFFFF"))
         .show()
+}
+
+fun View.controllerPopBackStack(){
+    Navigation.findNavController(this).popBackStack()
 }

@@ -6,12 +6,17 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.datastore.dataStore
+import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import br.com.apps.churrascow.databinding.FragmentLoginBinding
+import br.com.apps.churrascow.preferences.dataStore
+import br.com.apps.churrascow.preferences.rememberPassword
+import br.com.apps.churrascow.preferences.userLogged
 import br.com.apps.churrascow.ui.activities.MainActivity
-import br.com.apps.churrascow.ui.fragments.BaseFragment
+import br.com.apps.churrascow.ui.fragments.baseFragment.BaseFragment
 import br.com.apps.churrascow.util.hideKeyboard
 import br.com.apps.churrascow.util.navigateTo
 import br.com.apps.churrascow.util.snackBarRed
@@ -132,9 +137,16 @@ class LoginFragment : BaseFragment() {
 
     private fun authenticate(credentials: Pair<String, String>) {
         lifecycleScope.launch {
-            viewModel.authenticate(credentials)?.let {
+            viewModel.authenticate(credentials)?.let { user ->
+
+                requireContext().dataStore.edit { preferences ->
+                    preferences[userLogged] = user.email
+                    preferences[rememberPassword] = viewModel.rememberPassword
+                }
+
                 hideKeyboard()
-                context?.navigateTo(MainActivity::class.java)
+                requireContext().navigateTo(MainActivity::class.java)
+                requireActivity().finish()
 
             } ?: authenticationError()
         }
@@ -144,7 +156,6 @@ class LoginFragment : BaseFragment() {
         hideKeyboard()
         requireView().snackBarRed(AUTHENTICATION_ERROR)
     }
-
 
     /**
      * Responsible for Back Button behavior, it notifies the ViewModel to change view state.
@@ -189,10 +200,20 @@ class LoginFragment : BaseFragment() {
      * Responsible for Checkbox behavior, notify viewModel to change checkbox saved state.
      */
     private fun initCheckBoxRememberPassword() {
-        binding.loginFragmentLoginPanel.loginPanelCheckbox
-            .setOnCheckedChangeListener { _, isChecked ->
-                viewModel.checkBoxClicked(isChecked)
+        lifecycleScope.launch {
+            requireContext().dataStore.data.collect { preferences ->
+                preferences[rememberPassword].let {
+                    if (!it!!) {
+                        binding.loginFragmentLoginPanel.loginPanelCheckbox.isChecked = false
+                    }
+                }
             }
+            TODO("o click ainda nao está funcionando")
+            binding.loginFragmentLoginPanel.loginPanelCheckbox
+                .setOnCheckedChangeListener { _, isChecked ->
+                    viewModel.checkBoxClicked(isChecked)
+                }
+        }
     }
 
     /**
@@ -257,5 +278,6 @@ class LoginFragment : BaseFragment() {
         super.onDestroyView()
         _binding = null
     }
+
 
 }
