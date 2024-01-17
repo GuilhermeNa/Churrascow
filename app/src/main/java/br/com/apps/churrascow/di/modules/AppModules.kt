@@ -3,12 +3,17 @@ package br.com.apps.churrascow.di.modules
 import androidx.room.Room
 import br.com.apps.churrascow.database.AppDataBase
 import br.com.apps.churrascow.database.DATABASE_NAME
+import br.com.apps.churrascow.database.dao.ActionDao
 import br.com.apps.churrascow.database.dao.EventDao
 import br.com.apps.churrascow.database.dao.UserDao
+import br.com.apps.churrascow.datasource.external.ExternalActionDataSource
 import br.com.apps.churrascow.datasource.external.ExternalEventDataSource
 import br.com.apps.churrascow.datasource.external.ExternalUserDataSource
+import br.com.apps.churrascow.datasource.internal.InternalActionDataSource
 import br.com.apps.churrascow.datasource.internal.InternalEventDataSource
 import br.com.apps.churrascow.datasource.internal.InternalUserDataSource
+import br.com.apps.churrascow.model.Event
+import br.com.apps.churrascow.repository.ActionRepository
 import br.com.apps.churrascow.repository.EventRepository
 import br.com.apps.churrascow.repository.UserRepository
 import br.com.apps.churrascow.ui.fragments.formEvent.FormEventFragmentViewModel
@@ -18,6 +23,7 @@ import br.com.apps.churrascow.ui.fragments.payment.PaymentFragmentViewModel
 import br.com.apps.churrascow.ui.fragments.profile.ProfileFragmentViewModel
 import br.com.apps.churrascow.ui.fragments.register.RegisterFragmentViewModel
 import br.com.apps.churrascow.ui.fragments.support.SupportFragmentViewModel
+import br.com.apps.churrascow.useCase.ActionUseCase
 import br.com.apps.churrascow.useCase.CredentialUseCase
 import br.com.apps.churrascow.useCase.EventUseCase
 import br.com.apps.churrascow.useCase.ParticipantUseCase
@@ -33,6 +39,7 @@ val roomModule = module {
     }
     single<UserDao> { get<AppDataBase>().userDao() }
     single<EventDao> { get<AppDataBase>().eventDao() }
+    single<ActionDao> { get<AppDataBase>().actionDao() }
 }
 
 val viewModelModule = module {
@@ -43,30 +50,32 @@ val viewModelModule = module {
     viewModel<PaymentFragmentViewModel> { PaymentFragmentViewModel() }
     viewModel<ProfileFragmentViewModel> { ProfileFragmentViewModel() }
     viewModel<SupportFragmentViewModel> { SupportFragmentViewModel() }
-
 }
 
 val repositoryModule = module {
     single<UserRepository> { UserRepository(get(), get()) }
     single<EventRepository> { EventRepository(get(), get()) }
-
+    single<ActionRepository> { ActionRepository(get(), get()) }
 }
 
 val internalDataSource = module {
     single<InternalUserDataSource> { InternalUserDataSource(get()) }
     single<InternalEventDataSource> { InternalEventDataSource(get()) }
+    single<InternalActionDataSource> { InternalActionDataSource(get()) }
 }
 
 val externalDataSource = module {
     single<ExternalUserDataSource> { ExternalUserDataSource() }
     single<ExternalEventDataSource> { ExternalEventDataSource() }
+    single<ExternalActionDataSource> { ExternalActionDataSource() }
 }
 
 val useCaseModule = module {
     single<UserUseCase> { UserUseCase(get()) }
     single<ParticipantUseCase> { ParticipantUseCase() }
     single<CredentialUseCase> { CredentialUseCase() }
-    single<EventUseCase> { EventUseCase(get()) }
+    single<EventUseCase> { EventUseCase(get(), get()) }
+    single<ActionUseCase<Event>> { ActionUseCase( get() ) }
 }
 
 val appModules = listOf(

@@ -3,6 +3,7 @@ package br.com.apps.churrascow.repository
 import br.com.apps.churrascow.datasource.external.ExternalEventDataSource
 import br.com.apps.churrascow.datasource.internal.InternalEventDataSource
 import br.com.apps.churrascow.model.Event
+import br.com.apps.churrascow.model.EventWithActions
 import kotlinx.coroutines.flow.Flow
 
 class EventRepository(
@@ -17,8 +18,8 @@ class EventRepository(
      *
      * @param event New event.
      */
-    suspend fun addEvent(event: Event){
-        internalDataSource.addEvent(event)
+    suspend fun addEvent(event: Event): Long {
+        return internalDataSource.addEvent(event)
     }
 
     /**
@@ -30,6 +31,10 @@ class EventRepository(
      */
     fun loadEventsByUserId(userId: String): Flow<List<Event>> {
         return internalDataSource.loadEventsByUserId(userId)
+    }
+
+    fun loadEventsWithActions(userId: String): Flow<List<EventWithActions>?> {
+        return internalDataSource.loadEventsWithActions(userId)
     }
 
 }

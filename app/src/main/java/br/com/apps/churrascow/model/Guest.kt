@@ -17,7 +17,7 @@ import androidx.room.PrimaryKey
         Index(value = ["eventId"])
     ]
 )
-data class Participant(
+data class Guest(
 
     @PrimaryKey
     override val id: Long,

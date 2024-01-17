@@ -5,39 +5,44 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import br.com.apps.churrascow.database.converter.ConverterActionSummary
 import br.com.apps.churrascow.database.converter.ConverterLocalDateTime
 import br.com.apps.churrascow.database.converter.ConvertersBigDecimal
+import br.com.apps.churrascow.database.dao.ActionDao
 import br.com.apps.churrascow.database.dao.EventDao
 import br.com.apps.churrascow.database.dao.UserDao
+import br.com.apps.churrascow.model.Action
 import br.com.apps.churrascow.model.Event
-import br.com.apps.churrascow.model.Participant
+import br.com.apps.churrascow.model.Guest
 import br.com.apps.churrascow.model.User
 import br.com.apps.churrascow.model.Expense
 import br.com.apps.churrascow.model.ExpenseGenerator
 
 const val DATABASE_NAME = "prod.db"
-const val DATABASE_NAME_TEST = "test.db"
 
 @Database(
     entities =
     [
         User::class,
         Event::class,
-        Participant::class,
+        Guest::class,
         Expense::class,
-        ExpenseGenerator::class
+        ExpenseGenerator::class,
+        Action::class
     ],
-    version = 1,
+    version = 6,
     exportSchema = false
 )
 @TypeConverters(
     ConvertersBigDecimal::class,
-    ConverterLocalDateTime::class
+    ConverterLocalDateTime::class,
+    ConverterActionSummary::class
 )
 abstract class AppDataBase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
     abstract fun eventDao(): EventDao
+    abstract fun actionDao(): ActionDao
 
     companion object {
 

@@ -6,8 +6,10 @@ import br.com.apps.churrascow.model.User
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class UserRepositoryTest{
@@ -29,7 +31,9 @@ class UserRepositoryTest{
             internalData.authenticate(credentials)
         }.returns(user)
 
-        repository.authenticate(credentials)
+        val result = repository.authenticate(credentials)
+
+        assertEquals(user, result)
 
         coVerify {
             internalData.authenticate(credentials)
@@ -57,7 +61,9 @@ class UserRepositoryTest{
             internalData.getById(userId)
         }.returns(flowOf(user))
 
-        repository.getById(userId)
+        val result = repository.getById(userId).firstOrNull()
+
+        assertEquals(user, result)
 
         coVerify {
             internalData.getById(userId)

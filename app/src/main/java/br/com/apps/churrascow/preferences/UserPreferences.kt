@@ -10,8 +10,17 @@ import androidx.datastore.preferences.preferencesDataStore
 val Context.dataStore: DataStore<Preferences>
         by preferencesDataStore(name = "userSession")
 
+/**
+ * Holds the reference of the user with active session.
+ */
 val userLogged = stringPreferencesKey("user_logged")
 
+/**
+ * Defines whether the user wants to save their login and password and maintain logged in.
+ */
 val rememberPassword = booleanPreferencesKey("remember_password")
 
-const val defaultValueForRememberPassword = true
+/**
+ * Used when the user is using the app for the first time.
+ */
+const val defaultValueForRememberPassword = false

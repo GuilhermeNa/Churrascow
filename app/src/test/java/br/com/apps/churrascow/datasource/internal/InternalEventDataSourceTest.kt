@@ -5,8 +5,10 @@ import br.com.apps.churrascow.model.Event
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class InternalEventDataSourceTest {
@@ -22,12 +24,14 @@ class InternalEventDataSourceTest {
     )
 
     @Test
-    fun `should call dao new event when trying to register an event`() = runTest{
+    fun `should add a new event in dao and return its id when add`() = runTest {
         coEvery {
             dao.add(event)
-        }.returns(Unit)
+        }.returns(1L)
 
-        internalData.addEvent(event)
+        val result = internalData.addEvent(event)
+
+        assertEquals(1L, result)
 
         coVerify {
             dao.add(event)
@@ -35,15 +39,20 @@ class InternalEventDataSourceTest {
     }
 
     @Test
-    fun `should call dao load events by user id when trying to load events by user id`() = runTest {
+    fun `should load events from dao through id when try load events by id`() = runTest {
         val id = "a@b.c"
-        val events = listOf(event, event)
+        val events = listOf(event)
 
         coEvery {
             dao.loadEventsByUserId(id)
         }.returns(flowOf(events))
 
-        internalData.loadEventsByUserId(id)
+        val collectedEvents = mutableListOf<Event>()
+        internalData.loadEventsByUserId(id).collect { eventsList ->
+            collectedEvents.addAll(eventsList)
+        }
+
+        assertEquals(events, collectedEvents)
 
         coVerify {
             dao.loadEventsByUserId(id)

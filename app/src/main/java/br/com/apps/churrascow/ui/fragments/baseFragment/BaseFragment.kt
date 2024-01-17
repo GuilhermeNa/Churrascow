@@ -20,7 +20,7 @@ abstract class BaseFragment : Fragment() {
     //---------------------------------------------------------------------------------------------//
 
     /**
-     * Defines a range timer for click interactions with the view.
+     * Defines a timer range for click interactions with the view.
      *
      * @param view that receives the timer.
      * @param rangeTimer range time in milliseconds.
@@ -36,7 +36,7 @@ abstract class BaseFragment : Fragment() {
     }
 
     /**
-     * Check if field's string is good.
+     * Check if the strings in the fields are good.
      *
      * @throws InvalidFormatException when it's not good
      */

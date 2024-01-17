@@ -16,7 +16,7 @@
         android:importantForAccessibility="no" />
 
     <TextView
-        android:id="@+id/item_historic_name"
+        android:id="@+id/item_historic_summary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         tools:text="@tools:sample/full_names"
@@ -45,8 +45,8 @@
         android:ellipsize="end"
         android:maxLines="2"
 
-        app:layout_constraintStart_toStartOf="@id/item_historic_name"
-        app:layout_constraintTop_toBottomOf="@+id/item_historic_name"
+        app:layout_constraintStart_toStartOf="@id/item_historic_summary"
+        app:layout_constraintTop_toBottomOf="@+id/item_historic_summary"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
@@ -61,7 +61,7 @@
         android:gravity="end"
         style="@style/TEXT_COLOR"
 
-        app:layout_constraintStart_toEndOf="@id/item_historic_name"
+        app:layout_constraintStart_toEndOf="@id/item_historic_summary"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

@@ -2,6 +2,7 @@ package br.com.apps.churrascow.datasource.internal
 
 import br.com.apps.churrascow.database.dao.EventDao
 import br.com.apps.churrascow.model.Event
+import br.com.apps.churrascow.model.EventWithActions
 import kotlinx.coroutines.flow.Flow
 
 class InternalEventDataSource(
@@ -15,8 +16,8 @@ class InternalEventDataSource(
      *
      * @param event New event.
      */
-    suspend fun addEvent(event: Event) {
-        dao.add(event)
+    suspend fun addEvent(event: Event): Long {
+        return dao.add(event)
     }
 
     /**
@@ -28,6 +29,10 @@ class InternalEventDataSource(
      */
     fun loadEventsByUserId(userId: String): Flow<List<Event>> {
         return dao.loadEventsByUserId(userId)
+    }
+
+    fun loadEventsWithActions(userId: String): Flow<List<EventWithActions>?> {
+        return dao.getEventWithActions(userId)
     }
 
 }

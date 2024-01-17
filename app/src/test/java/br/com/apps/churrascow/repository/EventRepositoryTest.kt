@@ -6,8 +6,11 @@ import br.com.apps.churrascow.model.Event
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
+import org.junit.Assert
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 
@@ -28,9 +31,11 @@ class EventRepositoryTest {
     fun `should call internal new event when trying to register an event`() = runTest {
         coEvery {
             internalData.addEvent(event)
-        }.returns(Unit)
+        }.returns(1L)
 
-        repository.addEvent(event)
+        val result = repository.addEvent(event)
+
+        Assert.assertEquals(1L, result)
 
         coVerify {
             internalData.addEvent(event)
@@ -38,19 +43,25 @@ class EventRepositoryTest {
     }
 
     @Test
-    fun `should call internal load events by user id when trying to load events by user id`() = runTest {
-        val id = "a@b.c"
-        val events = listOf(event, event)
+    fun `should call internal load events by user id when trying to load events by user id`() =
+        runTest {
+            val id = "a@b.c"
+            val events = listOf(event)
 
-        coEvery {
-            internalData.loadEventsByUserId(id)
-        }.returns(flowOf(events))
+            coEvery {
+                internalData.loadEventsByUserId(id)
+            }.returns(flowOf(events))
 
-        repository.loadEventsByUserId(id)
+            val collectedEvents = mutableListOf<Event>()
+            repository.loadEventsByUserId(id).collect { eventsList ->
+                collectedEvents.addAll(eventsList)
+            }
 
-        coVerify {
-            internalData.loadEventsByUserId(id)
+            assertEquals(events, collectedEvents)
+
+            coVerify {
+                internalData.loadEventsByUserId(id)
+            }
         }
-    }
 
 }

@@ -4,19 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import br.com.apps.churrascow.databinding.FragmentHomeBinding
-import br.com.apps.churrascow.dto.EventDto
+import br.com.apps.churrascow.dto.EventWithActionsDto
 import br.com.apps.churrascow.ui.adapters.HomeFragmentRecyclerViewAdapter
 import br.com.apps.churrascow.ui.adapters.HomeFragmentViewPagerAdapter
-import br.com.apps.churrascow.ui.fragments.baseFragment.BaseFragment
 import br.com.apps.churrascow.ui.fragments.baseFragment.BaseFragmentV1
-import kotlinx.coroutines.launch
+import br.com.apps.churrascow.util.formatToStringBr
+import br.com.apps.churrascow.util.toLocalDateTime
+import me.relex.circleindicator.CircleIndicator3
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragmentV1() {
@@ -26,14 +25,9 @@ class HomeFragment : BaseFragmentV1() {
 
     private lateinit var viewPager: ViewPager2
     private val viewModel: HomeFragmentViewModel by viewModel()
-
-    //---------------------------------------------------------------------------------------------//
-    // ON CREATE
-    //---------------------------------------------------------------------------------------------//
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private val recyclerAdapter by lazy { HomeFragmentRecyclerViewAdapter(requireContext()) }
+    private val viewPagerAdapter by lazy { HomeFragmentViewPagerAdapter(requireContext()) }
+    private lateinit var indicator: CircleIndicator3
 
     //---------------------------------------------------------------------------------------------//
     // ON CREATE VIEW
@@ -58,13 +52,7 @@ class HomeFragment : BaseFragmentV1() {
         initTransFormer()
         initCircleIndicator()
         initRecyclerView()
-        initViewController()
-
-        binding.homeFragmentEventTitle.setOnClickListener {
-            lifecycleScope.launch {
-                logout()
-            }
-        }
+        initStateManager()
         //  activity?.onBackPressedDispatcher
     }
 
@@ -73,36 +61,12 @@ class HomeFragment : BaseFragmentV1() {
      *
      */
     private fun initViewPager() {
-        val lista = listOf(
-            EventDto(
-                idUser = "1",
-                title = "Titulo 1",
-                date = "Abril",
-                urlImage = ""
-            ),
-            EventDto(
-                idUser = "2",
-                title = "Titulo 2",
-                date = "Abril",
-                urlImage = ""
-            ),
-            EventDto(
-                idUser = "3",
-                title = "Titulo 2",
-                date = "Abril",
-                urlImage = ""
-            )
-        )
-
         viewPager = binding.homeFragmentViewPager
-        val homeFragmentViewPagerAdapter = HomeFragmentViewPagerAdapter(requireContext(), lista)
-
-        viewPager.adapter = homeFragmentViewPagerAdapter
+        viewPager.adapter = viewPagerAdapter
         viewPager.offscreenPageLimit = 3
         viewPager.clipToPadding = false
         viewPager.clipChildren = false
         viewPager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-
     }
 
     /**
@@ -122,8 +86,9 @@ class HomeFragment : BaseFragmentV1() {
      * Responsible for circle indicator, used as index for viewPager.
      */
     private fun initCircleIndicator() {
-        val indicator = binding.homeFragmentCircleIndicator
+        indicator = binding.homeFragmentCircleIndicator
         indicator.setViewPager(viewPager)
+        viewPagerAdapter.registerAdapterDataObserver(indicator.adapterDataObserver)
     }
 
     /**
@@ -131,29 +96,49 @@ class HomeFragment : BaseFragmentV1() {
      */
     private fun initRecyclerView() {
         val recyclerView = binding.homeFragmentHistoricPanel.historicPanelRecycler
-        val recyclerAdapter = HomeFragmentRecyclerViewAdapter(requireContext(), listOf(1, 2, 3))
-
         recyclerView.adapter = recyclerAdapter
-
     }
 
     /**
      * This method is responsible for manipulate the fragment's view by observing a MutableLiveData.
      *
      */
-    private fun initViewController() {
-        viewModel.eventDate.observe(viewLifecycleOwner) {
-            it?.let {
-                binding.homeFragmentDate.text = it
+    private fun initStateManager() {
+        viewModel.eventWithActionsDataSet.observe(viewLifecycleOwner) { it ->
+            it?.let { eventsWithActions ->
+                if (eventsWithActions.isNotEmpty()) {
+                    val listOfEvents = eventsWithActions.map { it.event }
+                    viewPagerAdapter.update(listOfEvents)
+                }
             }
         }
 
-        viewModel.eventsDataSet.observe(viewLifecycleOwner) {
-            it?.let {
-                //todo enviar dados para viewPager
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                val eventId = viewPagerAdapter.getEventId(position)
+                viewModel.eventWithActionsDataSet.value?.let { it ->
+                    it.firstOrNull { it.event.id?.toLong() == eventId }?.let {
+                        updateDate(it)
+                        updateRecycler(it)
+                    }
+                }
             }
-        }
 
+            private fun updateRecycler(eventWithActions: EventWithActionsDto) {
+                eventWithActions.actions.let { listOfActions ->
+                    recyclerAdapter.update(listOfActions)
+                }
+            }
+
+            private fun updateDate(eventWithActions: EventWithActionsDto) {
+                eventWithActions.event.let { eventDto ->
+                    val localDateTime = eventDto.date?.toLocalDateTime()
+                    val dateInPtBr = localDateTime?.formatToStringBr()
+                    binding.homeFragmentDate.text = dateInPtBr
+                }
+            }
+        })
 
     }
 
@@ -164,6 +149,17 @@ class HomeFragment : BaseFragmentV1() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    //---------------------------------------------------------------------------------------------//
+    // INTERFACES
+    //---------------------------------------------------------------------------------------------//
+
+    /**
+     * This method receives the [userId] for consumption as soon as it is loaded internally.
+     */
+    override fun idConsumer(id: String) {
+        viewModel.loadEventsAndActions(id)
     }
 
 }

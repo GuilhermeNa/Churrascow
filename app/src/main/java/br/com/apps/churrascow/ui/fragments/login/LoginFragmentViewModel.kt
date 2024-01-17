@@ -1,11 +1,13 @@
 package br.com.apps.churrascow.ui.fragments.login
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.com.apps.churrascow.exception.InvalidFormatException
 import br.com.apps.churrascow.model.User
 import br.com.apps.churrascow.useCase.CredentialUseCase
 import br.com.apps.churrascow.useCase.UserUseCase
+import br.com.apps.churrascow.util.TAG
 
 class LoginFragmentViewModel(
 
@@ -17,11 +19,11 @@ class LoginFragmentViewModel(
     /**
      * Is responsible for telling the UI when the login panel should be displayed or not
      *
-     * true - the Ui should display the login panel.
+     * true - display the login panel.
      *
-     * false - the Ui shouldn't display the login panel
+     * false - hide the login panel
      */
-    private var _loginPanel = MutableLiveData<Boolean>(false)
+    private var _loginPanel = MutableLiveData(false)
     val loginPanel get() = _loginPanel
 
     /**
@@ -38,30 +40,41 @@ class LoginFragmentViewModel(
     //---------------------------------------------------------------------------------------------//
 
     /**
-     * Set mutableLiveData responsible for login panel equals true.
+     * Set mutableLiveData [_loginPanel], responsible for login panel equals true.
      *
-     * @see _loginPanel
+     * @see backBtnCLicked
      */
     fun accessBtnCLicked() {
         _loginPanel.value = true
     }
 
     /**
-     * Set mutableLiveData responsible for login panel equals false.
+     * Set mutableLiveData [_loginPanel], responsible for login panel equals false.
      *
-     * @see _loginPanel
+     * @see accessBtnCLicked
      */
     fun backBtnCLicked() {
         _loginPanel.value = false
     }
 
     /**
-     * Alter rememberPassword state between true and false.
+     * Alter the [rememberPassword] state between true and false while the user interacts with the view.
      *
-     * @see rememberPassword used to hold checkbox state.
+     * @see rememberPasswordInitialState
      */
     fun checkBoxClicked(isChecked: Boolean) {
         rememberPassword = isChecked
+    }
+
+    /**
+     * Defines the initial state of [rememberPassword] received by dataStore.
+     *
+     * @see checkBoxClicked
+     */
+    fun rememberPasswordInitialState(rememberPass: Boolean?) {
+        rememberPass?.let {
+            rememberPassword = it
+        }
     }
 
     /**

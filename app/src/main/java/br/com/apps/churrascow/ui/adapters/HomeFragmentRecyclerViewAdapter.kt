@@ -1,19 +1,22 @@
 package br.com.apps.churrascow.ui.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.apps.churrascow.databinding.ItemHistoricBinding
+import br.com.apps.churrascow.dto.ActionDto
+import br.com.apps.churrascow.util.toActionSummary
 
-class HomeFragmentRecyclerViewAdapter(
+class HomeFragmentRecyclerViewAdapter(private val context: Context) :
+    RecyclerView.Adapter<HomeFragmentRecyclerViewAdapter.ViewHolder>() {
 
-    private val context: Context,
-    private val receivedDataSet: List<Int>
+    private val dataSet = mutableListOf<ActionDto>()
 
-) : RecyclerView.Adapter<HomeFragmentRecyclerViewAdapter.ViewHolder>() {
-
-    private val dataSet = receivedDataSet
+    //---------------------------------------------------------------------------------------------//
+    // ON CREATE VIEW HOLDER
+    //---------------------------------------------------------------------------------------------//
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemHistoricBinding.inflate(
@@ -22,26 +25,43 @@ class HomeFragmentRecyclerViewAdapter(
         return ViewHolder(binding)
     }
 
-    class ViewHolder(binding: ItemHistoricBinding): RecyclerView.ViewHolder(binding.root) {
-        private val historicName = binding.itemHistoricName
+    //---------------------------------------------------------------------------------------------//
+    // VIEW HOLDER
+    //---------------------------------------------------------------------------------------------//
+
+    class ViewHolder(binding: ItemHistoricBinding) : RecyclerView.ViewHolder(binding.root) {
+        private val actionSummary = binding.itemHistoricSummary
         private val description = binding.itemHistoricDescription
         private val value = binding.itemHistoricValue
 
-        fun vincula(ints: Int){
-            historicName.text = "Valor pago"
-            description.text = "Funalo pagou ingresso"
-            value.text = "R$ 50.00"
+        fun vincula(actions: ActionDto) {
+            actionSummary.text = actions.actionSummary.toActionSummary()?.description
+            description.text = "Id do evento = ${actions.eventId}"
+            actions.value?.let {
+                value.text = it
+            }
         }
 
     }
 
+    //---------------------------------------------------------------------------------------------//
+    // ON BIND VIEW HOLDER
+    //---------------------------------------------------------------------------------------------//
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val ints = dataSet[position]
-        holder.vincula(ints)
+        val events = dataSet[position]
+        holder.vincula(events)
     }
 
     override fun getItemCount(): Int {
         return dataSet.count()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun update(newData: List<ActionDto>) {
+        this.dataSet.clear()
+        this.dataSet.addAll(newData)
+        notifyDataSetChanged()
     }
 
 }
