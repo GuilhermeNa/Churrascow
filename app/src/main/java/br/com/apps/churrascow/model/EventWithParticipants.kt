@@ -8,6 +8,6 @@ class EventWithParticipants(
     @Embedded val event: Event,
 
     @Relation(parentColumn = "id", entityColumn = "eventId")
-    val participants: List<Participant>
+    val guests: List<Guest>
 
 )

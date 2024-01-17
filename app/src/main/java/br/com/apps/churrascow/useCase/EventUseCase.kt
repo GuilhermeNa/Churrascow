@@ -1,11 +1,16 @@
 package br.com.apps.churrascow.useCase
 
 import br.com.apps.churrascow.dto.EventDto
+import br.com.apps.churrascow.exception.ObjectNotFoundException
 import br.com.apps.churrascow.factory.EventFactory
-import br.com.apps.churrascow.mapper.EventMapper
+import br.com.apps.churrascow.model.ActionSummary
 import br.com.apps.churrascow.model.Event
+import br.com.apps.churrascow.model.EventWithActions
 import br.com.apps.churrascow.repository.EventRepository
-import br.com.apps.churrascow.util.Resource
+import br.com.apps.churrascow.service.ValidationService
+import br.com.apps.churrascow.util.DTO_NOT_FOUND
+import br.com.apps.churrascow.util.TAG_DESCRIPTION
+import br.com.apps.churrascow.util.TAG_TITLE
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -16,28 +21,25 @@ import kotlinx.coroutines.flow.Flow
  */
 class EventUseCase(
 
-    private val repository: EventRepository
+    private val repository: EventRepository,
+    private val actionUseCase: ActionUseCase<Event>
 
 ) {
 
     /**
-     * Map a Data transfer object to an Event.
-     *
-     * @param eventDto received data from view.
-     *
-     * @return Event - mapped object.
-     */
-    fun mapToEvent(eventDto: EventDto): Event {
-        return EventMapper.toEvent(eventDto)
-    }
-
-    /**
-     * Adding a new event.
+     * Adding a new [Event] and register an [Action] for it.
      *
      * @param event New event.
      */
     suspend fun addEvent(event: Event) {
-        repository.addEvent(event)
+        val eventId = repository.addEvent(event)
+        actionUseCase.registerAnAction(
+            t = event,
+            eventId = eventId,
+            actionSummary = ActionSummary.EVENT_INSERT
+        )
+
+        //TODO -> adicionar a ação do evento
     }
 
     /**
@@ -51,8 +53,46 @@ class EventUseCase(
         return repository.loadEventsByUserId(userId)
     }
 
-    fun createEvent(eventDto: EventDto): Event {
-        return EventFactory.createObject(eventDto)
+    /**
+     * Create a new event using data from Ui tipped by user.
+     * @param [eventDto] with the data received by Ui.
+     * @return created Event
+     * @throws ObjectNotFoundException
+     * @throws InvalidFormatException
+     * @throws StringTooBigException
+     */
+    fun createEvent(eventDto: EventDto?): Event {
+        val validDto = validateEventDto(eventDto)
+        return EventFactory.createObject(validDto)
+    }
+
+    private fun validateEventDto(eventDto: EventDto?): EventDto {
+        val validation = ValidationService()
+
+        eventDto?.let { dto ->
+            validation
+                .forString(dto.idUser)
+                .cannotBeBlank()
+                .mustBeEmailFormat()
+
+            validation
+                .forString(dto.title)
+                .tagIdentifier(TAG_TITLE)
+                .cannotBeBlank()
+                .cannotBeBiggerThan(20)
+
+            validation
+                .forString(dto.description)
+                .tagIdentifier(TAG_DESCRIPTION)
+                .cannotBeBiggerThan(100)
+
+        } ?: throw ObjectNotFoundException(DTO_NOT_FOUND)
+
+        return eventDto
+    }
+
+    fun loadEventsWithActions(userId: String): Flow<List<EventWithActions>?> {
+        return repository.loadEventsWithActions(userId)
     }
 
 }

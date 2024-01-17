@@ -2,16 +2,20 @@ package br.com.apps.churrascow.ui.fragments.baseFragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.lifecycleScope
 import br.com.apps.churrascow.database.AppDataBase
 import br.com.apps.churrascow.model.User
 import br.com.apps.churrascow.preferences.dataStore
+import br.com.apps.churrascow.preferences.rememberPassword
 import br.com.apps.churrascow.preferences.userLogged
 import br.com.apps.churrascow.ui.activities.LoginActivity
+import br.com.apps.churrascow.util.TAG
 import br.com.apps.churrascow.util.navigateTo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 
@@ -19,7 +23,7 @@ import kotlinx.coroutines.launch
  * Base fragment v1 is used in others fragments than login or register. Use this extension on these
  * fragments would cause loops.
  */
-abstract class BaseFragmentV1: BaseFragment() {
+abstract class BaseFragmentV1 : BaseFragment(), IdConsumer<String> {
 
     private val userDao by lazy { AppDataBase.getDb(requireContext()).userDao() }
 
@@ -44,7 +48,6 @@ abstract class BaseFragmentV1: BaseFragment() {
             preferences[userLogged]?.let { userId ->
                 loadUser(userId)
             } ?: navigateToLogin()
-
         }
     }
 
@@ -52,7 +55,11 @@ abstract class BaseFragmentV1: BaseFragment() {
         userDao.getById(userId).firstOrNull()
             .also {
                 _user.value = it
-            }
+                it?.let { user ->
+                    this.userId = user.email
+                    idConsumer(user.email)
+                }
+            } ?: navigateToLogin()
     }
 
     private fun navigateToLogin() {
@@ -67,14 +74,13 @@ abstract class BaseFragmentV1: BaseFragment() {
     //---------------------------------------------------------------------------------------------//
 
     /**
-     * Remove saved preferences of user id and return to start fragment.
+     * Remove saved preferences of user id and return to initial fragment.
      */
     protected suspend fun logout() {
         requireContext().dataStore.edit { preferences ->
             preferences.remove(userLogged)
+            preferences[rememberPassword] = false
         }
     }
-
-
 
 }

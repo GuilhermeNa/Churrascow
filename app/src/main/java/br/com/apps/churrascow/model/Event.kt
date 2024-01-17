@@ -27,7 +27,8 @@ data class Event(
     val idUser: String,
 
     val title: String,
-    val date: LocalDateTime?,
+    val date: LocalDateTime? = LocalDateTime.now(),
+    val guests: Int? = 0,
     val urlImage: String? = null,
     val description: String? = null,
 
@@ -35,7 +36,7 @@ data class Event(
 
     /**
      * This ticket revenue goal represents the initial spending expectation for this event.
-     * Is going to be divided for all valid participants.
+     * Is going to be divided for all valid guests.
      */
     private var ticketRevenueGoal: BigDecimal = BigDecimal.ZERO
 
@@ -92,7 +93,6 @@ data class Event(
         return ticketRevenueGoal.subtract(collectedTicket)
     }
 
-
     //---------------------------------------------------------------------------------------------//
     // FOR ROOM USE
     //---------------------------------------------------------------------------------------------//
@@ -124,5 +124,7 @@ data class Event(
     fun getCollectedTicket(): BigDecimal {
         return this.ticketRevenueGoal
     }
+
+
 
 }

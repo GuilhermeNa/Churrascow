@@ -1,10 +1,11 @@
 package br.com.apps.churrascow.util
 
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.util.Locale
 
-fun LocalDateTime.formatToString(): String {
+fun LocalDateTime.formatToStringBr(): String {
     val dayOfWeek = this.dayOfMonth
     val monthOfYear = this.month
     val year = this.year
@@ -16,3 +17,10 @@ fun LocalDateTime.formatToString(): String {
 
     return "$dayOfWeek, de $month de $year"
 }
+
+fun LocalDateTime.formatToString(): String {
+    val formatter =
+        DateTimeFormatter.ISO_LOCAL_DATE_TIME
+    return this.format(formatter)
+}
+

@@ -6,12 +6,12 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import br.com.apps.churrascow.databinding.FragmentLoginBinding
+import br.com.apps.churrascow.model.User
 import br.com.apps.churrascow.preferences.dataStore
 import br.com.apps.churrascow.preferences.rememberPassword
 import br.com.apps.churrascow.preferences.userLogged
@@ -34,14 +34,6 @@ class LoginFragment : BaseFragment() {
 
     private lateinit var navController: NavController
     private val viewModel: LoginFragmentViewModel by viewModel()
-
-    //---------------------------------------------------------------------------------------------//
-    // ON CREATE
-    //---------------------------------------------------------------------------------------------//
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     //---------------------------------------------------------------------------------------------//
     // ON CREATE VIEW
@@ -70,7 +62,7 @@ class LoginFragment : BaseFragment() {
         initSupportBtn()
         initForgottenPasswordBtn()
         initCheckBoxRememberPassword()
-        initViewController()
+        initStateManager()
     }
 
     /**
@@ -139,16 +131,19 @@ class LoginFragment : BaseFragment() {
         lifecycleScope.launch {
             viewModel.authenticate(credentials)?.let { user ->
 
-                requireContext().dataStore.edit { preferences ->
-                    preferences[userLogged] = user.email
-                    preferences[rememberPassword] = viewModel.rememberPassword
-                }
-
+                preferencesManager(user)
                 hideKeyboard()
                 requireContext().navigateTo(MainActivity::class.java)
                 requireActivity().finish()
 
             } ?: authenticationError()
+        }
+    }
+
+    private suspend fun preferencesManager(user: User) {
+        requireContext().dataStore.edit { preferences ->
+            preferences[userLogged] = user.email
+            preferences[rememberPassword] = viewModel.rememberPassword
         }
     }
 
@@ -202,18 +197,21 @@ class LoginFragment : BaseFragment() {
     private fun initCheckBoxRememberPassword() {
         lifecycleScope.launch {
             requireContext().dataStore.data.collect { preferences ->
-                preferences[rememberPassword].let {
-                    if (!it!!) {
-                        binding.loginFragmentLoginPanel.loginPanelCheckbox.isChecked = false
-                    }
+                preferences[rememberPassword].let { rememberPass ->
+
+                    viewModel.rememberPasswordInitialState(rememberPass)
+                    if (rememberPass!!)
+                        binding.loginFragmentLoginPanel.loginPanelCheckbox.isChecked = true
+
                 }
             }
-            TODO("o click ainda nao está funcionando")
-            binding.loginFragmentLoginPanel.loginPanelCheckbox
-                .setOnCheckedChangeListener { _, isChecked ->
-                    viewModel.checkBoxClicked(isChecked)
-                }
         }
+
+        binding.loginFragmentLoginPanel.loginPanelCheckbox
+            .setOnCheckedChangeListener { _, isChecked ->
+                viewModel.checkBoxClicked(isChecked)
+            }
+
     }
 
     /**
@@ -236,11 +234,11 @@ class LoginFragment : BaseFragment() {
      * If the MutableLiveData return's false, controller should hide login panel and back its initial
      * stage.
      */
-    private fun initViewController() {
-        viewModel.loginPanel.observe(viewLifecycleOwner) {
-            it?.let {
+    private fun initStateManager() {
+        viewModel.loginPanel.observe(viewLifecycleOwner) { showPanel ->
+            showPanel?.let {
                 if (it) {
-                    prepareViewForLogin()
+                    showLoginPanel()
                 } else {
                     hideLoginPanel()
                 }
@@ -248,7 +246,7 @@ class LoginFragment : BaseFragment() {
         }
     }
 
-    private fun prepareViewForLogin() {
+    private fun showLoginPanel() {
         binding.apply {
             lifecycleScope.launch {
                 loginFragmentLoginPanel.loginPanelLayout.visibility = VISIBLE

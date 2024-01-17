@@ -30,9 +30,7 @@ class FormEventFragmentViewModel(
     //---------------------------------------------------------------------------------------------//
 
     /**
-     * Alter the mutableLiveData with a new date selected by the user.
-     *
-     * @see _date
+     * Alter the mutableLiveData [_date] with a new date selected by the user.
      */
     fun newDateHasBeenSelected(selection: Long) {
         val newDate = selection.toLocalDateTime()
@@ -45,9 +43,7 @@ class FormEventFragmentViewModel(
     }
 
     /**
-     * Alter the mutableLiveData with url image.
-     *
-     * @see urlImage
+     * Alter the mutableLiveData [_urlImage] with url image selected by the user.
      */
     fun newImageHasBeenSelected(newUrl: String) {
         val oldUrl = _urlImage.value
@@ -58,6 +54,12 @@ class FormEventFragmentViewModel(
 
     }
 
+    /**
+     * When the user click on save button, starts the flow of creating a new Event.
+     * @param eventDto with the data received by Ui.
+     * @throws ObjectNotFoundException
+     * @throws InvalidFormatException
+     */
     suspend fun saveButtonClicked(eventDto: EventDto) {
         val event = useCase.createEvent(eventDto)
         useCase.addEvent(event)
