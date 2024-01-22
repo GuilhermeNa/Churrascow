@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import java.math.BigDecimal
 
 @Entity(
     foreignKeys = [ForeignKey(
@@ -20,14 +21,34 @@ import androidx.room.PrimaryKey
 data class Guest(
 
     @PrimaryKey
-    override val id: Long,
+    val id: Long? = null,
     var eventId: Long,
 
     val name: String,
-    val icon: Long?,
+    val icon: String? = null,
 
-    ) : ExpenseGenerator(
-    id = id
+    private var _received: BigDecimal = BigDecimal.ZERO,
+    private var _expend: BigDecimal = BigDecimal.ZERO
+
 ) {
+
+    val received get() = _received
+    val expend get() = _expend
+
+    fun addPaidValue(value: BigDecimal?) {
+        value?.let{
+            _received.add(value)
+        }
+    }
+
+    fun addReceivedValue(value: BigDecimal?) {
+        value?.let {
+            _expend.add(value)
+        }
+    }
+
+    fun balance(): BigDecimal {
+        return _received.subtract(_expend)
+    }
 
 }

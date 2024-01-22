@@ -2,12 +2,15 @@ package br.com.apps.churrascow.service
 
 import br.com.apps.churrascow.exception.BlankStringException
 import br.com.apps.churrascow.exception.InvalidEmailException
+import br.com.apps.churrascow.exception.InvalidEnumReferenceException
 import br.com.apps.churrascow.exception.InvalidFormatException
 import br.com.apps.churrascow.exception.ObjectNotFoundException
 import br.com.apps.churrascow.exception.StringTooBigException
 import br.com.apps.churrascow.exception.StringTooSmallException
+import br.com.apps.churrascow.model.ActionSummary
+import br.com.apps.churrascow.model.Ticket
+import br.com.apps.churrascow.util.NO_TAG
 
-const val NO_TAG = "no_tag"
 
 /**
  * Class responsible for validating whether a string is valid to be used as needed.
@@ -101,6 +104,31 @@ class ValidationService {
             if (!android.util.Patterns.EMAIL_ADDRESS.matcher(string).matches()) {
                 throw InvalidEmailException(tagIdentifier ?: NO_TAG)
             }
+        } ?: throw ObjectNotFoundException(tagIdentifier ?: NO_TAG)
+        return this
+    }
+
+    fun hasAValidEnumOnClass(enum: Class<*>): ValidationService {
+        validatedString?.let { string ->
+
+            if (enum == ActionSummary::class.java) {
+                ActionSummary.values()
+                    .map { it.toString() }
+                    .contains(string)
+                    .let { containEnum ->
+                        if (!containEnum)
+                            throw InvalidEnumReferenceException(tagIdentifier ?: NO_TAG)
+                    }
+            } else if(enum == Ticket::class.java) {
+                Ticket.values()
+                    .map { it.toString() }
+                    .contains(string)
+                    .let { containEnum ->
+                        if (!containEnum)
+                            throw InvalidEnumReferenceException(tagIdentifier ?: NO_TAG)
+                    }
+            }
+
         } ?: throw ObjectNotFoundException(tagIdentifier ?: NO_TAG)
         return this
     }

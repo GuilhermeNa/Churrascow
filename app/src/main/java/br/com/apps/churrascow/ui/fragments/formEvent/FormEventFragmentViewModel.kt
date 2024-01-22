@@ -61,8 +61,7 @@ class FormEventFragmentViewModel(
      * @throws InvalidFormatException
      */
     suspend fun saveButtonClicked(eventDto: EventDto) {
-        val event = useCase.createEvent(eventDto)
-        useCase.addEvent(event)
+        useCase.registerAnEvent(eventDto)
     }
 
 }

@@ -10,6 +10,7 @@ const val EMPTY_FIELD = "Preencha o campo"
 const val STRING_TOO_BIG = "Atingiu o máximo de caracteres"
 const val DTO_NOT_FOUND = "Falha ao registrar, Dto não encontrado"
 const val SUMMARY_NOT_FOUND = "Falha ao registrar, Action Summary nao encontrado"
+const val ACTION_NOT_FOUND = "Action enum não encontrado"
 
 //---------------------------------------------------------------------------------------------//
 // SUCCESS

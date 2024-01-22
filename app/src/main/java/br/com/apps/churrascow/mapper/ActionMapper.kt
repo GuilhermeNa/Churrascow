@@ -1,11 +1,8 @@
 package br.com.apps.churrascow.mapper
 
 import br.com.apps.churrascow.dto.ActionDto
-import br.com.apps.churrascow.dto.EventDto
 import br.com.apps.churrascow.model.ActionSummary
-import br.com.apps.churrascow.util.toActionSummary
 import br.com.apps.churrascow.util.toStringValue
-import java.math.BigDecimal
 
 class ActionMapper {
 
@@ -15,15 +12,19 @@ class ActionMapper {
             id: Long? = null,
             eventId: Long,
             guestId: Long? = null,
+            expenseId: Long? = null,
             value: String? = null,
-            actionSummary: ActionSummary
+            actionSummary: ActionSummary,
+            description: String? = null
         ): ActionDto {
             return ActionDto(
                 id = id?.toString(),
                 eventId = eventId.toString(),
                 guestId = guestId?.toString(),
+                expenseId = expenseId?.toString(),
                 value = value,
-                actionSummary = actionSummary.toStringValue()
+                actionSummary = actionSummary.toStringValue(),
+                description = description
             )
         }
     }

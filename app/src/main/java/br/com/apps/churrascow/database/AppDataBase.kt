@@ -10,13 +10,16 @@ import br.com.apps.churrascow.database.converter.ConverterLocalDateTime
 import br.com.apps.churrascow.database.converter.ConvertersBigDecimal
 import br.com.apps.churrascow.database.dao.ActionDao
 import br.com.apps.churrascow.database.dao.EventDao
+import br.com.apps.churrascow.database.dao.ExpenseDao
+import br.com.apps.churrascow.database.dao.GuestDao
+import br.com.apps.churrascow.database.dao.TransferDao
 import br.com.apps.churrascow.database.dao.UserDao
 import br.com.apps.churrascow.model.Action
 import br.com.apps.churrascow.model.Event
-import br.com.apps.churrascow.model.Guest
-import br.com.apps.churrascow.model.User
 import br.com.apps.churrascow.model.Expense
-import br.com.apps.churrascow.model.ExpenseGenerator
+import br.com.apps.churrascow.model.Guest
+import br.com.apps.churrascow.model.Transfer
+import br.com.apps.churrascow.model.User
 
 const val DATABASE_NAME = "prod.db"
 
@@ -27,10 +30,10 @@ const val DATABASE_NAME = "prod.db"
         Event::class,
         Guest::class,
         Expense::class,
-        ExpenseGenerator::class,
-        Action::class
+        Action::class,
+        Transfer::class
     ],
-    version = 6,
+    version = 8,
     exportSchema = false
 )
 @TypeConverters(
@@ -41,8 +44,11 @@ const val DATABASE_NAME = "prod.db"
 abstract class AppDataBase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
+    abstract fun guestDao(): GuestDao
     abstract fun eventDao(): EventDao
     abstract fun actionDao(): ActionDao
+    abstract fun expenseDao(): ExpenseDao
+    abstract fun transferDao(): TransferDao
 
     companion object {
 
@@ -57,6 +63,7 @@ abstract class AppDataBase : RoomDatabase() {
                 .fallbackToDestructiveMigration()
                 .build().also { db = it }
         }
+
     }
 
 }

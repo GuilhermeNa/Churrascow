@@ -20,7 +20,7 @@ class ActionFactoryTest {
             actionSummary = "EVENT_INSERT"
         )
 
-        val result = ActionFactory.createObject(actionDto)
+        val result = ActionFactory.createObject(actionDto, actionEnum)
 
         assertEquals(1L, result.eventId)
         assertEquals(2L, result.guestId)
@@ -38,7 +38,7 @@ class ActionFactoryTest {
             actionSummary = "EVENT_INSERT"
         )
 
-        val result = ActionFactory.createObject(actionDto)
+        val result = ActionFactory.createObject(actionDto, actionEnum)
 
         assertEquals(1L, result.eventId)
         assertEquals(null, result.guestId)
@@ -49,7 +49,7 @@ class ActionFactoryTest {
     @Test
     fun `should throw ObjectNotFoundException when ActionDto is null`() {
         val resultException = assertThrows(ObjectNotFoundException::class.java) {
-            ActionFactory.createObject(null)
+            ActionFactory.createObject(null, actionEnum)
         }
 
         assertEquals(DTO_NOT_FOUND, resultException.message)

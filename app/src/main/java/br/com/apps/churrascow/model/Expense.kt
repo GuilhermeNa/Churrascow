@@ -8,20 +8,21 @@ import java.math.BigDecimal
 
 @Entity(
     foreignKeys = [ForeignKey(
-        entity = ExpenseGenerator::class,
+        entity = Guest::class,
         parentColumns = arrayOf("id"),
-        childColumns = arrayOf("generatorId"),
+        childColumns = arrayOf("guestId"),
         onDelete = ForeignKey.CASCADE
     )],
     indices = [
-        Index(value = ["generatorId"])
+        Index(value = ["guestId"])
     ]
 )
 data class Expense(
 
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
-    var generatorId: Long,
+    val id: Long? = null,
+    val eventId: Long,
+    var guestId: Long,
 
     val name: String,
     val value: BigDecimal,

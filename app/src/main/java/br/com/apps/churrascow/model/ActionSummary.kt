@@ -14,5 +14,9 @@ enum class ActionSummary(
     EXPENSE_INSERT("Expense Inserted"),
     EXPENSE_REMOVED("Expense Removed"),
 
+    TRANSFER_INSERT("Expense Inserted"),
+    TRANSFER_REMOVED("Expense Removed"),
+
+
 
 }

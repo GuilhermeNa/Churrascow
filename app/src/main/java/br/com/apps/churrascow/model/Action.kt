@@ -19,6 +19,12 @@ import java.math.BigDecimal
             childColumns = arrayOf("guestId"),
             onDelete = ForeignKey.CASCADE
         ),
+        ForeignKey(
+            entity = Expense::class,
+            parentColumns = arrayOf("id"),
+            childColumns = arrayOf("expenseId"),
+            onDelete = ForeignKey.CASCADE
+        )
     ]
 )
 data class Action(
@@ -26,7 +32,8 @@ data class Action(
     @PrimaryKey(autoGenerate = true)
     val id: Long? = null,
     val eventId: Long,
-    val guestId: Long? = 0L,
+    val guestId: Long? = null,
+    val expenseId: Long? = null,
 
     val value: BigDecimal? = null,
     val actionSummary: ActionSummary,

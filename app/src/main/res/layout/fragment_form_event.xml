@@ -58,6 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textCapWords"
+                android:textColor="@color/black"
                 android:maxLength="20"
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -87,6 +88,7 @@
                 android:gravity="start"
                 android:inputType="textMultiLine|textCapSentences"
                 android:lines="3"
+                android:textColor="@color/black"
                 android:maxLength="100"
                 android:maxLines="3" />
         </com.google.android.material.textfield.TextInputLayout>

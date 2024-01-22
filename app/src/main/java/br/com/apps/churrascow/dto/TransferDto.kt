@@ -1,12 +1,11 @@
 package br.com.apps.churrascow.dto
 
-data class ExpenseDto(
+data class TransferDto(
 
     val id: String? = null,
     val eventId: String,
-    val guestId: String,
-    val name: String,
+    val receiverId: String,
+    val senderId: String,
     val value: String,
-    val ticket: String
 
-)
+    )
